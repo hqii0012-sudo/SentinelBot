@@ -1,0 +1,6 @@
+# 后端依赖包
+# 如需固定大版本，可写：flask==2.3.0
+flask
+flask-cors
+requests
+python-dotenv
