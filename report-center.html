@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>报表中心 - AI项目廉洁风险智能识别系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="report-center.css" rel="stylesheet">
+</head>
+<body>
+    <div class="report-center-container">
+        <!-- 顶部条 -->
+        <div class="header-container">
+            <div class="header-content">
+                <h1 class="page-title">报表中心</h1>
+                <div class="header-actions">
+                    <button class="btn btn-outline-primary me-2" onclick="exportReport('csv')">
+                        <i class="fas fa-file-csv"></i>
+                        导出 CSV
+                    </button>
+                    <button class="btn btn-outline-primary me-2" onclick="exportReport('xlsx')">
+                        <i class="fas fa-file-excel"></i>
+                        导出 XLSX
+                    </button>
+                    <button class="btn btn-outline-primary me-2" onclick="exportReport('pdf')">
+                        <i class="fas fa-file-pdf"></i>
+                        导出 PDF
+                    </button>
+                    <button class="btn btn-outline-primary" onclick="goHome()">
+                        <i class="fas fa-home"></i>
+                        返回首页
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 页签 -->
+        <div class="tab-container">
+            <ul class="nav nav-tabs" id="reportTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="fixed-reports-tab" data-bs-toggle="tab" data-bs-target="#fixed-reports" type="button" role="tab" aria-controls="fixed-reports" aria-selected="true">
+                        <i class="fas fa-chart-line"></i>
+                        固定报表
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="custom-query-tab" data-bs-toggle="tab" data-bs-target="#custom-query" type="button" role="tab" aria-controls="custom-query" aria-selected="false">
+                        <i class="fas fa-search"></i>
+                        自助查询
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="export-logs-tab" data-bs-toggle="tab" data-bs-target="#export-logs" type="button" role="tab" aria-controls="export-logs" aria-selected="false">
+                        <i class="fas fa-history"></i>
+                        导出记录
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tab 内容 -->
+        <div class="tab-content" id="reportTabsContent">
+            <!-- 固定报表 Tab -->
+            <div class="tab-pane fade show active" id="fixed-reports" role="tabpanel" aria-labelledby="fixed-reports-tab">
+                <div class="reports-grid">
+                    <!-- 月度纪检监督报告 -->
+                    <div class="report-card">
+                        <div class="report-card-header">
+                            <h5><i class="fas fa-gavel"></i> 月度纪检监督报告</h5>
+                            <span class="badge bg-primary">月度</span>
+                        </div>
+                        <div class="report-card-body">
+                            <p class="report-description">汇总本月纪检监督工作，包含违规事件统计、处置进度、风险预警等关键指标。</p>
+                            <div class="time-range-selector">
+                                <label class="form-label">时间范围</label>
+                                <select class="form-select" id="monthly-report-time">
+                                    <option value="current-month">本月</option>
+                                    <option value="last-month">上月</option>
+                                    <option value="current-quarter">本季度</option>
+                                    <option value="custom">自定义</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="generatePreview('monthly-report')">
+                                <i class="fas fa-eye"></i>
+                                生成预览
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 项目合规模板 -->
+                    <div class="report-card">
+                        <div class="report-card-header">
+                            <h5><i class="fas fa-shield-alt"></i> 项目合规模板</h5>
+                            <span class="badge bg-success">季度</span>
+                        </div>
+                        <div class="report-card-body">
+                            <p class="report-description">项目合规性评估报告，涵盖进度、成本、质量、违规事件四个维度的合规状况。</p>
+                            <div class="time-range-selector">
+                                <label class="form-label">时间范围</label>
+                                <select class="form-select" id="compliance-report-time">
+                                    <option value="current-quarter">本季度</option>
+                                    <option value="last-quarter">上季度</option>
+                                    <option value="current-year">本年度</option>
+                                    <option value="custom">自定义</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="generatePreview('compliance-report')">
+                                <i class="fas fa-eye"></i>
+                                生成预览
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 供应商风险榜 -->
+                    <div class="report-card">
+                        <div class="report-card-header">
+                            <h5><i class="fas fa-exclamation-triangle"></i> 供应商风险榜</h5>
+                            <span class="badge bg-warning">实时</span>
+                        </div>
+                        <div class="report-card-body">
+                            <p class="report-description">基于多维度风险评估的供应商排名，包含关联关系、影子股东、招采异常等风险指标。</p>
+                            <div class="time-range-selector">
+                                <label class="form-label">时间范围</label>
+                                <select class="form-select" id="supplier-risk-time">
+                                    <option value="current-month">本月</option>
+                                    <option value="current-quarter">本季度</option>
+                                    <option value="current-year">本年度</option>
+                                    <option value="custom">自定义</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="generatePreview('supplier-risk')">
+                                <i class="fas fa-eye"></i>
+                                生成预览
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 设计变更统计 -->
+                    <div class="report-card">
+                        <div class="report-card-header">
+                            <h5><i class="fas fa-project-diagram"></i> 设计变更统计</h5>
+                            <span class="badge bg-info">月度</span>
+                        </div>
+                        <div class="report-card-body">
+                            <p class="report-description">设计变更申请、审批、实施全流程统计，包含变更类型、影响范围、处置时长等分析。</p>
+                            <div class="time-range-selector">
+                                <label class="form-label">时间范围</label>
+                                <select class="form-select" id="design-change-time">
+                                    <option value="current-month">本月</option>
+                                    <option value="last-month">上月</option>
+                                    <option value="current-quarter">本季度</option>
+                                    <option value="custom">自定义</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="generatePreview('design-change')">
+                                <i class="fas fa-eye"></i>
+                                生成预览
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 招采异常分析 -->
+                    <div class="report-card">
+                        <div class="report-card-header">
+                            <h5><i class="fas fa-shopping-cart"></i> 招采异常分析</h5>
+                            <span class="badge bg-danger">实时</span>
+                        </div>
+                        <div class="report-card-body">
+                            <p class="report-description">招投标过程中的异常行为识别与分析，包含围标串标、价格异常、资质造假等风险点。</p>
+                            <div class="time-range-selector">
+                                <label class="form-label">时间范围</label>
+                                <select class="form-select" id="procurement-anomaly-time">
+                                    <option value="current-month">本月</option>
+                                    <option value="current-quarter">本季度</option>
+                                    <option value="current-year">本年度</option>
+                                    <option value="custom">自定义</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="generatePreview('procurement-anomaly')">
+                                <i class="fas fa-eye"></i>
+                                生成预览
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 微权力监控报告 -->
+                    <div class="report-card">
+                        <div class="report-card-header">
+                            <h5><i class="fas fa-user-shield"></i> 微权力监控报告</h5>
+                            <span class="badge bg-secondary">月度</span>
+                        </div>
+                        <div class="report-card-body">
+                            <p class="report-description">关键岗位人员权力行使监控，包含决策权限、审批流程、利益冲突等风险识别。</p>
+                            <div class="time-range-selector">
+                                <label class="form-label">时间范围</label>
+                                <select class="form-select" id="micro-power-time">
+                                    <option value="current-month">本月</option>
+                                    <option value="last-month">上月</option>
+                                    <option value="current-quarter">本季度</option>
+                                    <option value="custom">自定义</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="generatePreview('micro-power')">
+                                <i class="fas fa-eye"></i>
+                                生成预览
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 预览区域 -->
+                <div class="preview-section" id="preview-section" style="display: none;">
+                    <div class="preview-header">
+                        <h5 id="preview-title">报表预览</h5>
+                        <div class="preview-actions">
+                            <button class="btn btn-outline-primary me-2" onclick="exportPreview('csv')">
+                                <i class="fas fa-file-csv"></i>
+                                导出 CSV
+                            </button>
+                            <button class="btn btn-outline-primary me-2" onclick="exportPreview('xlsx')">
+                                <i class="fas fa-file-excel"></i>
+                                导出 XLSX
+                            </button>
+                            <button class="btn btn-outline-primary" onclick="exportPreview('pdf')">
+                                <i class="fas fa-file-pdf"></i>
+                                导出 PDF
+                            </button>
+                        </div>
+                    </div>
+                    <div class="preview-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="preview-table">
+                                <thead class="table-dark sticky-top">
+                                    <tr id="preview-table-header">
+                                        <!-- 动态生成表头 -->
+                                    </tr>
+                                </thead>
+                                <tbody id="preview-table-body">
+                                    <!-- 动态生成数据行 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 自助查询 Tab -->
+            <div class="tab-pane fade" id="custom-query" role="tabpanel" aria-labelledby="custom-query-tab">
+                <!-- 过滤面板 -->
+                <div class="filter-panel">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label class="form-label">时间范围</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" id="start-date" placeholder="开始日期">
+                                <span class="input-group-text">至</span>
+                                <input type="date" class="form-control" id="end-date" placeholder="结束日期">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">项目</label>
+                            <select class="form-select" id="project-filter" multiple>
+                                <option value="project1">项目A</option>
+                                <option value="project2">项目B</option>
+                                <option value="project3">项目C</option>
+                                <option value="project4">项目D</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">供应商</label>
+                            <select class="form-select" id="supplier-filter" multiple>
+                                <option value="supplier1">供应商甲</option>
+                                <option value="supplier2">供应商乙</option>
+                                <option value="supplier3">供应商丙</option>
+                                <option value="supplier4">供应商丁</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">规则类型</label>
+                            <select class="form-select" id="rule-type-filter" multiple>
+                                <option value="related-party">关联关系</option>
+                                <option value="shadow-shareholder">影子股东</option>
+                                <option value="procurement-anomaly">招采异常</option>
+                                <option value="change-anomaly">变更异常</option>
+                                <option value="micro-power">微权力</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">字段选择</label>
+                            <select class="form-select" id="field-selector" multiple>
+                                <option value="project">项目名称</option>
+                                <option value="supplier">供应商</option>
+                                <option value="amount">金额</option>
+                                <option value="risk-level">风险等级</option>
+                                <option value="status">状态</option>
+                                <option value="create-time">创建时间</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <label class="form-label">操作</label>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="executeQuery()">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="resetQuery()">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 查询结果 -->
+                <div class="query-results">
+                    <div class="results-header">
+                        <div class="results-summary">
+                            <span id="results-count">共 0 条记录</span>
+                            <span id="query-conditions" class="text-muted ms-3"></span>
+                        </div>
+                        <div class="results-actions">
+                            <button class="btn btn-outline-primary me-2" onclick="exportQueryResults('csv')">
+                                <i class="fas fa-file-csv"></i>
+                                导出 CSV
+                            </button>
+                            <button class="btn btn-outline-primary me-2" onclick="exportQueryResults('xlsx')">
+                                <i class="fas fa-file-excel"></i>
+                                导出 XLSX
+                            </button>
+                            <button class="btn btn-outline-primary" onclick="exportQueryResults('pdf')">
+                                <i class="fas fa-file-pdf"></i>
+                                导出 PDF
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="query-results-table">
+                            <thead class="table-dark sticky-top">
+                                <tr id="query-table-header">
+                                    <!-- 动态生成表头 -->
+                                </tr>
+                            </thead>
+                            <tbody id="query-table-body">
+                                <!-- 动态生成数据行 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container">
+                        <nav aria-label="查询结果分页">
+                            <ul class="pagination justify-content-center" id="query-pagination">
+                                <!-- 动态生成分页 -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导出记录 Tab -->
+            <div class="tab-pane fade" id="export-logs" role="tabpanel" aria-labelledby="export-logs-tab">
+                <div class="export-logs-container">
+                    <div class="logs-header">
+                        <div class="logs-search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="logs-search" placeholder="搜索报表名称或导出人">
+                                <button class="btn btn-outline-secondary" onclick="searchLogs()">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="logs-filter">
+                            <select class="form-select" id="logs-time-filter">
+                                <option value="all">全部时间</option>
+                                <option value="today">今天</option>
+                                <option value="week">本周</option>
+                                <option value="month">本月</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="logs-description">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle"></i>
+                            此列表为审计日志占位，实际需与后端对接写入
+                        </small>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="export-logs-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>导出时间</th>
+                                    <th>报表名称/类型</th>
+                                    <th>筛选条件摘要</th>
+                                    <th>导出人</th>
+                                    <th>文件格式</th>
+                                    <th>文件大小</th>
+                                </tr>
+                            </thead>
+                            <tbody id="export-logs-body">
+                                <!-- 动态生成导出记录 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="export-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong class="me-auto">导出成功</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast-message">
+                文件已成功导出
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="report-center.js"></script>
+</body>
+</html>

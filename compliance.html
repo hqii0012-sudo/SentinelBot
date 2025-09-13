@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合规看板 - AI项目诚信监管平台</title>
+    <link rel="stylesheet" href="compliance.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="header-container">
+            <h1 class="page-title">
+                合规看板
+            </h1>
+            <div class="header-actions">
+                <button class="btn btn-outline-secondary" onclick="exportData('csv')">
+                    <i class="fas fa-download"></i>
+                    导出 CSV
+                </button>
+                <button class="btn btn-outline-secondary" onclick="exportData('pdf')">
+                    <i class="fas fa-file-pdf"></i>
+                    导出 PDF
+                </button>
+                <button class="btn btn-outline-primary" onclick="goHome()">
+                    <i class="fas fa-home"></i>
+                    返回首页
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 筛选区域 -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-group">
+                <label class="filter-label">时间范围：</label>
+                <select id="timeRange" class="filter-select">
+                    <option value="month">本月</option>
+                    <option value="quarter" selected>本季度</option>
+                    <option value="year">全年</option>
+                    <option value="custom">自定义</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">项目：</label>
+                <select id="projectFilter" class="filter-select">
+                    <option value="">全部项目</option>
+                    <option value="项目A">项目A</option>
+                    <option value="项目B">项目B</option>
+                    <option value="项目C">项目C</option>
+                    <option value="项目D">项目D</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">维度：</label>
+                <div class="filter-tags">
+                    <label class="tag-item">
+                        <input type="checkbox" class="tag-checkbox" data-dimension="progress" checked>
+                        <span class="tag-text">进度</span>
+                    </label>
+                    <label class="tag-item">
+                        <input type="checkbox" class="tag-checkbox" data-dimension="cost" checked>
+                        <span class="tag-text">成本</span>
+                    </label>
+                    <label class="tag-item">
+                        <input type="checkbox" class="tag-checkbox" data-dimension="quality" checked>
+                        <span class="tag-text">质量</span>
+                    </label>
+                    <label class="tag-item">
+                        <input type="checkbox" class="tag-checkbox" data-dimension="violation" checked>
+                        <span class="tag-text">违规事件</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- KPI 卡片区域 -->
+            <section class="kpi-section">
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon progress">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-number" id="delayedProjects">8</div>
+                            <div class="kpi-label">延误项目数</div>
+                            <div class="kpi-sub">平均延误 12 天</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon cost">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-number" id="overBudgetProjects">5</div>
+                            <div class="kpi-label">超预算项目数</div>
+                            <div class="kpi-sub">平均超支 15.2%</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon quality">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-number" id="qualityRate">94.2%</div>
+                            <div class="kpi-label">质量合格率</div>
+                            <div class="kpi-sub">返工率 3.8%</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon violation">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-number" id="violationEvents">12</div>
+                            <div class="kpi-label">违规事件</div>
+                            <div class="kpi-sub">闭环率 83.3%</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 中部主区 -->
+            <section class="main-grid">
+                <!-- 左列：项目对比表 -->
+                <div class="table-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-table"></i>
+                            项目对比
+                        </h2>
+                        <div class="table-actions">
+                            <div class="search-group">
+                                <input type="text" id="projectSearch" class="search-input" placeholder="搜索项目名称...">
+                                <i class="fas fa-search search-icon"></i>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary" onclick="toggleFilter('abnormal')">
+                                <i class="fas fa-filter"></i>
+                                仅显示异常
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="projectsTable">
+                            <thead>
+                                <tr>
+                                    <th>项目</th>
+                                    <th>进度</th>
+                                    <th>成本</th>
+                                    <th>质量</th>
+                                    <th>违规事件</th>
+                                    <th>负责人</th>
+                                    <th>更新时间</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projectsTableBody">
+                                <!-- 数据将通过JavaScript动态填充 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer">
+                        <div class="pagination-info">
+                            显示 <span id="showingStart">1</span> - <span id="showingEnd">10</span> 条，共 <span id="totalRecords">24</span> 条
+                        </div>
+                        <div class="pagination">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="changePage('prev')" disabled id="prevBtn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="page-info">
+                                第 <span id="currentPage">1</span> 页，共 <span id="totalPages">3</span> 页
+                            </span>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="changePage('next')" id="nextBtn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右列：趋势与分布 -->
+                <div class="chart-section">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fas fa-chart-line"></i>
+                                趋势分析
+                            </h3>
+                            <div class="chart-legend">
+                                <span class="legend-item">
+                                    <span class="legend-color progress"></span>
+                                    延误率
+                                </span>
+                                <span class="legend-item">
+                                    <span class="legend-color cost"></span>
+                                    超预算率
+                                </span>
+                                <span class="legend-item">
+                                    <span class="legend-color quality"></span>
+                                    质量异常率
+                                </span>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-line"></i>
+                                <p>趋势图表占位</p>
+                                <small>显示月度延误率、超预算率、质量异常率趋势</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fas fa-chart-pie"></i>
+                                违规处置概览
+                            </h3>
+                        </div>
+                        <div class="chart-container">
+                            <div class="violation-stats">
+                                <div class="violation-item">
+                                    <div class="violation-label">待复核</div>
+                                    <div class="violation-bar">
+                                        <div class="violation-fill" style="width: 25%"></div>
+                                    </div>
+                                    <div class="violation-count">3</div>
+                                </div>
+                                <div class="violation-item">
+                                    <div class="violation-label">审核中</div>
+                                    <div class="violation-bar">
+                                        <div class="violation-fill" style="width: 50%"></div>
+                                    </div>
+                                    <div class="violation-count">6</div>
+                                </div>
+                                <div class="violation-item">
+                                    <div class="violation-label">已归档</div>
+                                    <div class="violation-bar">
+                                        <div class="violation-fill" style="width: 100%"></div>
+                                    </div>
+                                    <div class="violation-count">12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 下方区块：维度 Top 榜 -->
+            <section class="top-section">
+                <div class="top-grid">
+                    <div class="top-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-trophy"></i>
+                                变更异常 Top 项目
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="top-list" id="changeTopList">
+                                <!-- 数据将通过JavaScript动态填充 -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                违规高发 Top 供应商
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="top-list" id="violationTopList">
+                                <!-- 数据将通过JavaScript动态填充 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 项目详情抽屉 -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    <div class="drawer" id="detailDrawer">
+        <div class="drawer-header">
+            <h3 class="drawer-title">项目详情</h3>
+            <button class="drawer-close" onclick="closeDrawer()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="drawer-body" id="drawerContent">
+            <!-- 详情内容将通过JavaScript动态填充 -->
+        </div>
+    </div>
+
+    <!-- 权限提示 -->
+    <div class="permission-notice" id="permissionNotice">
+        <i class="fas fa-shield-alt"></i>
+        <span>已脱敏（占位）</span>
+    </div>
+
+    <!-- 审计日志提示 -->
+    <div class="audit-notice" id="auditNotice">
+        <i class="fas fa-file-alt"></i>
+        <span>导出记录入审计日志（占位）</span>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <script src="compliance.js"></script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>供应商画像 - 工程监督平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link href="supplier.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部区域 -->
+    <div class="supplier-header">
+        <div class="header-container">
+            <h1 class="page-title">供应商画像</h1>
+            <div class="header-actions">
+                <button class="btn btn-outline-primary btn-sm me-2" id="export-csv">
+                    <i class="bi bi-file-earmark-text me-1"></i>
+                    导出 CSV
+                </button>
+                <button class="btn btn-outline-primary btn-sm me-2" id="export-pdf">
+                    <i class="bi bi-file-earmark-pdf me-1"></i>
+                    导出 PDF
+                </button>
+                <a href="index.html" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    返回首页
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 搜索区 -->
+    <div class="search-section">
+        <div class="search-container">
+            <div class="search-input-group">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="form-control search-input" id="supplier-search" 
+                       placeholder="请输入供应商名称或统一社会信用代码">
+                <div class="search-dropdown" id="search-dropdown" style="display: none;">
+                    <div class="dropdown-item" data-supplier="supplier1">北京建筑工程有限公司</div>
+                    <div class="dropdown-item" data-supplier="supplier2">上海建设集团</div>
+                    <div class="dropdown-item" data-supplier="supplier3">广州工程公司</div>
+                    <div class="dropdown-item" data-supplier="supplier4">深圳建筑集团</div>
+                    <div class="dropdown-item" data-supplier="supplier5">天津建设公司</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="supplier-container">
+        <div class="supplier-layout">
+            <!-- 左栏：信息卡片 -->
+            <div class="supplier-sidebar">
+                <!-- 基础信息卡 -->
+                <div class="info-card">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <i class="bi bi-building me-2"></i>
+                            基础信息
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">供应商名称</span>
+                            <span class="info-value" id="supplier-name">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">统一社会信用代码</span>
+                            <span class="info-value" id="supplier-code">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">资质等级</span>
+                            <span class="info-value" id="supplier-grade">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">主营业务</span>
+                            <span class="info-value" id="supplier-business">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">注册资本</span>
+                            <span class="info-value" id="supplier-capital">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">成立时间</span>
+                            <span class="info-value" id="supplier-founded">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 风险舆情卡 -->
+                <div class="info-card">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            风险舆情
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">投诉数量</span>
+                            <span class="info-value" id="complaints-count">0</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">不良新闻条数</span>
+                            <span class="info-value" id="negative-news-count">0</span>
+                        </div>
+                        <div class="news-list" id="news-list">
+                            <!-- 动态生成新闻列表 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 复评记录卡 -->
+                <div class="info-card">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <i class="bi bi-clipboard-check me-2"></i>
+                            复评记录
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="recheck-list" id="recheck-list">
+                            <!-- 动态生成复评记录 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右栏：主内容区 -->
+            <div class="supplier-content">
+                <!-- 统计卡片区 -->
+                <div class="stats-section">
+                    <div class="stats-grid">
+                        <div class="stat-card stat-score">
+                            <div class="stat-icon">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="overall-score">0</div>
+                                <div class="stat-label">综合评分</div>
+                                <div class="stat-range">0-100</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-risk">
+                            <div class="stat-icon">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="risk-badge" id="risk-level">-</div>
+                                <div class="stat-label">风险等级</div>
+                                <div class="stat-desc" id="risk-desc">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-warning">
+                            <div class="stat-icon">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="warning-count">0</div>
+                                <div class="stat-label">关键预警数</div>
+                                <div class="stat-desc">命中条目</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 指标区 -->
+                <div class="metrics-section">
+                    <!-- 履约与质量 -->
+                    <div class="metric-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="bi bi-clipboard-data me-2"></i>
+                                履约与质量
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="metrics-grid">
+                                <div class="metric-item">
+                                    <div class="metric-label">合同履行率</div>
+                                    <div class="metric-value" id="fulfill-rate">-</div>
+                                    <div class="metric-unit">%</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-label">延误次数</div>
+                                    <div class="metric-value" id="delay-count">-</div>
+                                    <div class="metric-unit">次</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-label">质检不合格率</div>
+                                    <div class="metric-value" id="defect-rate">-</div>
+                                    <div class="metric-unit">%</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-label">平均交付周期</div>
+                                    <div class="metric-value" id="lead-time">-</div>
+                                    <div class="metric-unit">天</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 财务与价格 -->
+                    <div class="metric-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="bi bi-currency-dollar me-2"></i>
+                                财务与价格
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="metrics-grid">
+                                <div class="metric-item">
+                                    <div class="metric-label">变更频率</div>
+                                    <div class="metric-value" id="change-freq">-</div>
+                                    <div class="metric-unit">次/月</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-label">索赔频率</div>
+                                    <div class="metric-value" id="claim-freq">-</div>
+                                    <div class="metric-unit">次/月</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-label">价格偏离度</div>
+                                    <div class="metric-value" id="price-deviation">-</div>
+                                    <div class="metric-unit">%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 舆情摘要 -->
+                    <div class="metric-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="bi bi-chat-dots me-2"></i>
+                                舆情摘要
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="sentiment-list" id="sentiment-list">
+                                <!-- 动态生成舆情摘要 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 趋势与对比 -->
+                <div class="trend-comparison-section">
+                    <!-- 趋势图 -->
+                    <div class="trend-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="bi bi-graph-up me-2"></i>
+                                评分趋势（近12个月）
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="trend-chart" id="trend-chart">
+                                <div class="chart-placeholder">
+                                    <i class="bi bi-bar-chart"></i>
+                                    <p>趋势图表占位</p>
+                                    <small>近12个月综合评分变化趋势</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 对比表 -->
+                    <div class="comparison-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="bi bi-people me-2"></i>
+                                同类目对比
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped" id="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th>供应商名称</th>
+                                            <th>综合分</th>
+                                            <th>履约率</th>
+                                            <th>价格偏离度</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="comparison-table-body">
+                                        <!-- 动态生成对比数据 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MaxKB 浮窗 -->
+    <script async defer src="http://62.234.162.112:6002/chat/api/embed?protocol=http&host=62.234.162.112:6002&token=ef85a1c2cc251df3"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 自定义 JS -->
+    <script src="app.js"></script>
+    
+    <!-- 供应商画像页面专用脚本 -->
+    <script>
+        // 占位数据
+        const supplierData = {
+            supplier1: {
+                name: "北京建筑工程有限公司",
+                code: "91110000123456789X",
+                grade: "一级",
+                business: "建筑工程施工",
+                capital: "5000万元",
+                founded: "2010-03-15",
+                score: 85,
+                warnings: 3,
+                complaints: 1,
+                negativeNews: 0,
+                news: [
+                    "公司获得2023年度优秀供应商称号",
+                    "参与国家重点项目建设，表现优异",
+                    "通过ISO9001质量管理体系认证"
+                ],
+                kpis: {
+                    fulfillRate: 95.2,
+                    delayCount: 2,
+                    defectRate: 1.8,
+                    leadTime: 45,
+                    changeFreq: 0.5,
+                    claimFreq: 0.2,
+                    priceDeviation: 5.2
+                },
+                rechecks: [
+                    { date: "2023-12-15", decision: "通过", action: "继续保持现有管理标准" },
+                    { date: "2023-09-20", decision: "通过", action: "加强质量控制流程" },
+                    { date: "2023-06-10", decision: "通过", action: "优化交付时间管理" }
+                ]
+            },
+            supplier2: {
+                name: "上海建设集团",
+                code: "91310000987654321Y",
+                grade: "一级",
+                business: "基础设施建设",
+                capital: "8000万元",
+                founded: "2008-05-20",
+                score: 82,
+                warnings: 2,
+                complaints: 0,
+                negativeNews: 1,
+                news: [
+                    "完成重大基础设施项目",
+                    "获得行业质量认证",
+                    "参与城市更新改造项目"
+                ],
+                kpis: {
+                    fulfillRate: 93.1,
+                    delayCount: 1,
+                    defectRate: 2.1,
+                    leadTime: 42,
+                    changeFreq: 0.3,
+                    claimFreq: 0.1,
+                    priceDeviation: 3.8
+                },
+                rechecks: [
+                    { date: "2023-11-20", decision: "通过", action: "维持现有标准" },
+                    { date: "2023-08-15", decision: "通过", action: "提升服务效率" },
+                    { date: "2023-05-10", decision: "通过", action: "加强安全管理" }
+                ]
+            }
+        };
+
+        // 风险等级计算
+        function calculateRiskLevel(score) {
+            if (score >= 80) return { level: "正常", class: "risk-normal", desc: "表现优秀" };
+            if (score >= 60) return { level: "建议复核", class: "risk-warning", desc: "需要关注" };
+            return { level: "高风险", class: "risk-danger", desc: "需要整改" };
+        }
+
+        // 渲染供应商数据
+        function renderSupplierData(supplierId) {
+            const data = supplierData[supplierId];
+            if (!data) return;
+            
+            // 基础信息
+            document.getElementById('supplier-name').textContent = data.name;
+            document.getElementById('supplier-code').textContent = data.code;
+            document.getElementById('supplier-grade').textContent = data.grade;
+            document.getElementById('supplier-business').textContent = data.business;
+            document.getElementById('supplier-capital').textContent = data.capital;
+            document.getElementById('supplier-founded').textContent = data.founded;
+            
+            // 风险舆情
+            document.getElementById('complaints-count').textContent = data.complaints;
+            document.getElementById('negative-news-count').textContent = data.negativeNews;
+            
+            // 新闻列表
+            const newsList = document.getElementById('news-list');
+            newsList.innerHTML = data.news.map(news => 
+                `<div class="news-item">${news}</div>`
+            ).join('');
+            
+            // 复评记录
+            const recheckList = document.getElementById('recheck-list');
+            recheckList.innerHTML = data.rechecks.map(recheck => 
+                `<div class="recheck-item">
+                    <div class="recheck-date">${recheck.date}</div>
+                    <div class="recheck-decision ${recheck.decision === '通过' ? 'decision-pass' : 'decision-fail'}">${recheck.decision}</div>
+                    <div class="recheck-action">${recheck.action}</div>
+                </div>`
+            ).join('');
+            
+            // 指标数据
+            document.getElementById('overall-score').textContent = data.score;
+            document.getElementById('warning-count').textContent = data.warnings;
+            
+            // 风险等级
+            const risk = calculateRiskLevel(data.score);
+            const riskElement = document.getElementById('risk-level');
+            riskElement.textContent = risk.level;
+            riskElement.className = `risk-badge ${risk.class}`;
+            document.getElementById('risk-desc').textContent = risk.desc;
+            
+            // KPI数据
+            document.getElementById('fulfill-rate').textContent = data.kpis.fulfillRate;
+            document.getElementById('delay-count').textContent = data.kpis.delayCount;
+            document.getElementById('defect-rate').textContent = data.kpis.defectRate;
+            document.getElementById('lead-time').textContent = data.kpis.leadTime;
+            document.getElementById('change-freq').textContent = data.kpis.changeFreq;
+            document.getElementById('claim-freq').textContent = data.kpis.claimFreq;
+            document.getElementById('price-deviation').textContent = data.kpis.priceDeviation;
+            
+            // 舆情摘要
+            const sentimentList = document.getElementById('sentiment-list');
+            sentimentList.innerHTML = data.news.map(news => 
+                `<div class="sentiment-item">${news}</div>`
+            ).join('');
+            
+            // 对比表
+            renderComparisonTable();
+        }
+
+        // 渲染对比表
+        function renderComparisonTable() {
+            const tbody = document.getElementById('comparison-table-body');
+            const suppliers = Object.values(supplierData);
+            suppliers.sort((a, b) => b.score - a.score); // 按综合分降序排列
+            
+            tbody.innerHTML = suppliers.map(supplier => 
+                `<tr>
+                    <td>${supplier.name}</td>
+                    <td><span class="score-value">${supplier.score}</span></td>
+                    <td>${supplier.kpis.fulfillRate}%</td>
+                    <td>${supplier.kpis.priceDeviation}%</td>
+                </tr>`
+            ).join('');
+        }
+
+        // 导出功能
+        function exportData(format) {
+            alert(`已导出 ${format}（占位）`);
+        }
+
+        // 搜索功能
+        function handleSearch() {
+            const searchTerm = document.getElementById('supplier-search').value;
+            if (searchTerm.trim()) {
+                // 模拟搜索
+                const supplierId = searchTerm.includes('北京') ? 'supplier1' : 'supplier2';
+                renderSupplierData(supplierId);
+            }
+        }
+
+        // 事件监听
+        document.addEventListener('DOMContentLoaded', function() {
+            // 渲染初始数据
+            renderSupplierData('supplier1');
+            
+            // 导出按钮
+            document.getElementById('export-csv').addEventListener('click', () => exportData('CSV'));
+            document.getElementById('export-pdf').addEventListener('click', () => exportData('PDF'));
+            
+            // 搜索输入框
+            const searchInput = document.getElementById('supplier-search');
+            const dropdown = document.getElementById('search-dropdown');
+            
+            searchInput.addEventListener('focus', () => {
+                dropdown.style.display = 'block';
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    dropdown.style.display = 'none';
+                }, 200);
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+            
+            // 下拉选项点击
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const supplierId = this.getAttribute('data-supplier');
+                    searchInput.value = this.textContent;
+                    dropdown.style.display = 'none';
+                    renderSupplierData(supplierId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

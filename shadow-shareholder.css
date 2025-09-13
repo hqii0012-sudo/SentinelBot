@@ -1,0 +1,648 @@
+/* ===== 影子股东识别页面样式 ===== */
+
+/* 页面标题 */
+.shadow-shareholder-page-header {
+    background: white;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1.5rem 0 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0 20px;
+    position: relative;
+}
+
+.shadow-shareholder-page-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
+    text-align: left;
+    padding-left: 0;
+}
+
+.header-actions {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.back-btn {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    border: 1px solid #D32F2F;
+    color: #D32F2F;
+    background: white;
+}
+
+.back-btn:hover {
+    background: #D32F2F;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(211, 47, 47, 0.2);
+}
+
+/* 主容器 */
+.shadow-shareholder-container {
+    min-height: calc(100vh - 80px);
+    background-color: #f8f9fa;
+}
+
+/* 左侧面板 */
+.shadow-shareholder-sidebar {
+    background: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+    padding: 0;
+    min-height: calc(100vh - 80px);
+    width: 240px;
+    flex: 0 0 240px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.input-panel {
+    padding: 1rem;
+    background: white;
+    margin: 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.panel-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #D32F2F;
+}
+
+/* 导入数据区域 */
+.import-section {
+    margin-bottom: 1.5rem;
+}
+
+.import-section .btn {
+    margin-bottom: 0.75rem;
+}
+
+.import-tips {
+    font-size: 0.8rem;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+/* 配置选项区域 */
+.config-section {
+    border-top: 1px solid #e9ecef;
+    padding-top: 1rem;
+}
+
+.config-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.75rem;
+}
+
+.config-item {
+    margin-bottom: 1rem;
+}
+
+.config-item .form-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.config-item .form-select {
+    font-size: 0.9rem;
+}
+
+/* 弱信号检测选项 */
+.weak-signal-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.weak-signal-options .form-check {
+    margin-bottom: 0;
+}
+
+.weak-signal-options .form-check-input {
+    margin-top: 0.2rem;
+}
+
+.weak-signal-options .form-check-input:checked {
+    background-color: #D32F2F;
+    border-color: #D32F2F;
+}
+
+.weak-signal-options .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(211, 47, 47, 0.25);
+}
+
+.weak-signal-options .form-check-label {
+    font-size: 0.85rem;
+    color: #495057;
+    cursor: pointer;
+}
+
+/* 右侧内容区 */
+.shadow-shareholder-content {
+    padding: 0;
+    background: white;
+}
+
+.shadow-shareholder-main {
+    padding: 1.5rem;
+    min-height: calc(100vh - 80px);
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+/* 统计卡片 */
+.stats-cards {
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e3f2fd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    color: #1976d2;
+}
+
+.stat-icon-warning {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.stat-icon-confirmed {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+    margin: 0;
+    line-height: 1;
+}
+
+.stat-number-warning {
+    color: #f57c00;
+}
+
+.stat-number-confirmed {
+    color: #2e7d32;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0.25rem 0 0 0;
+}
+
+/* 卡片通用样式 */
+.relationship-graph-card,
+.weak-signal-card,
+.evidence-cards-section {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+}
+
+.relationship-graph-card .card-header,
+.weak-signal-card .card-header,
+.evidence-cards-section .card-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 1.5rem;
+    border-radius: 8px 8px 0 0;
+}
+
+.relationship-graph-card .card-title,
+.weak-signal-card .card-title,
+.evidence-cards-section .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
+}
+
+.relationship-graph-card .card-body,
+.weak-signal-card .card-body,
+.evidence-cards-section .card-body {
+    padding: 1rem;
+}
+
+/* 股权关系图 */
+.graph-placeholder {
+    height: 250px;
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    text-align: center;
+}
+
+.graph-placeholder i {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    color: #adb5bd;
+}
+
+.graph-placeholder p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem 0;
+}
+
+.graph-placeholder small {
+    font-size: 0.8rem;
+}
+
+/* 表格样式 */
+.weak-signal-card .table {
+    margin-bottom: 0;
+}
+
+.weak-signal-card .table th {
+    background-color: #f8f9fa;
+    border-top: none;
+    font-weight: 600;
+    color: #495057;
+    padding: 1rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.weak-signal-card .table td {
+    padding: 1rem 0.75rem;
+    vertical-align: middle;
+    border-top: 1px solid #f1f3f4;
+}
+
+.weak-signal-card .table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* 风险等级标签 */
+.risk-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.risk-high {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.risk-medium {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.risk-low {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+/* 相似度分数 */
+.similarity-score {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* 证据卡片容器 */
+.evidence-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 0.75rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* 证据卡片 */
+.evidence-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.evidence-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.evidence-card.confirmed {
+    border-left: 4px solid #2e7d32;
+    background-color: #f8fff8;
+}
+
+.evidence-card.excluded {
+    border-left: 4px solid #6c757d;
+    background-color: #f8f9fa;
+    opacity: 0.7;
+}
+
+.evidence-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.evidence-card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
+}
+
+.evidence-card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.evidence-card-body {
+    margin-bottom: 0.75rem;
+}
+
+.evidence-field {
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.evidence-field-label {
+    font-weight: 500;
+    color: #495057;
+    margin-right: 0.5rem;
+}
+
+.evidence-field-value {
+    color: #212529;
+}
+
+.evidence-source {
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* 底部操作区 */
+.action-section {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 1rem;
+}
+
+.action-info {
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* 按钮样式 */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #D32F2F;
+    border-color: #D32F2F;
+}
+
+.btn-primary:hover {
+    background-color: #b71c1c;
+    border-color: #b71c1c;
+}
+
+.btn-success {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.btn-success:hover {
+    background-color: #1b5e20;
+    border-color: #1b5e20;
+}
+
+.btn-outline-primary {
+    color: #D32F2F;
+    border-color: #D32F2F;
+}
+
+.btn-outline-primary:hover {
+    background-color: #D32F2F;
+    border-color: #D32F2F;
+    color: white;
+}
+
+.btn-outline-success {
+    color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.btn-outline-success:hover {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+    color: white;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .shadow-shareholder-page-header {
+        padding: 1rem 0 0.5rem;
+    }
+    
+    .header-content {
+        padding: 0 15px;
+    }
+    
+    .shadow-shareholder-page-title {
+        font-size: 1.5rem;
+        text-align: left;
+    }
+    
+    .header-actions {
+        right: 15px;
+    }
+    
+    .shadow-shareholder-sidebar {
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+        width: 100%;
+        flex: none;
+        max-height: none;
+    }
+    
+    .input-panel {
+        margin: 0.5rem;
+    }
+    
+    .shadow-shareholder-main {
+        padding: 1rem;
+        max-height: none;
+    }
+    
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .evidence-cards-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-section {
+        padding: 1rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+}
+
+@media (max-width: 576px) {
+    .shadow-shareholder-page-header {
+        padding: 0.75rem 0 0.5rem;
+    }
+    
+    .header-content {
+        padding: 0 10px;
+    }
+    
+    .shadow-shareholder-page-title {
+        font-size: 1.25rem;
+        text-align: left;
+    }
+    
+    .header-actions {
+        right: 10px;
+    }
+    
+    .back-btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .stats-cards .row {
+        margin: 0;
+    }
+    
+    .stats-cards .col-md-4 {
+        padding: 0 0.5rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        margin-right: 0.75rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .graph-placeholder {
+        height: 200px;
+    }
+    
+    .graph-placeholder i {
+        font-size: 2rem;
+    }
+    
+    .weak-signal-card .table th,
+    .weak-signal-card .table td {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.8rem;
+    }
+}
