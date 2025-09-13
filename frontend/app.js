@@ -1,7 +1,7 @@
 // API 基础地址配置
 // 部署到 GitHub Pages 时，请将此地址修改为您的 Render 后端地址
 // 例如：https://your-app-name.onrender.com
-const API_BASE = 'https://your-app.onrender.com';
+const API_BASE = 'https://integrity-backend-pkwr.onrender.com';
 
 /**
  * 通用的API调用封装
@@ -2081,3 +2081,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // 可以在这里添加其他页面初始化逻辑
     // MaxKB的浮窗会自动加载，无需手动初始化
 });
+
