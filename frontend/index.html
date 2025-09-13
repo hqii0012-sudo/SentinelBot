@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工程监督平台 - 首页</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部区域 -->
+    <header class="top-header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center py-1">
+                <!-- 左侧 Logo 和系统名称 -->
+                <div class="d-flex align-items-center">
+                    <div class="company-logo me-3">
+                        <img src="company-logo.png" alt="公司Logo" class="logo-image">
+                    </div>
+                    <div>
+                        <h1 class="system-title mb-0" data-i18n="system.title">工程监督平台</h1>
+                        <p class="system-subtitle mb-0" data-i18n="system.subtitle">Integrity Supervisor</p>
+                    </div>
+                </div>
+                
+                <!-- 右侧图标 -->
+                <div class="header-icon-container">
+                    <!-- 语言切换 -->
+                    <div class="language-switcher">
+                        <button class="header-icon language-btn" aria-label="Language" aria-expanded="false" aria-haspopup="true">
+                            <i class="bi bi-globe"></i>
+                        </button>
+                        <div class="language-menu" role="menu" aria-label="Language selection">
+                            <button class="language-option" role="menuitem" data-lang="zh-CN">
+                                <i class="bi bi-check2 d-none" id="check-zh"></i>
+                                <span>中文（简体）</span>
+                            </button>
+                            <button class="language-option" role="menuitem" data-lang="en-US">
+                                <i class="bi bi-check2 d-none" id="check-en"></i>
+                                <span>English</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="header-icon" aria-label="用户头像">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="index.html" aria-label="首页" data-i18n="nav.home">首页</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="qna.html" aria-label="AI问答" data-i18n="nav.ai_qa">AI问答</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="kinship.html" aria-label="关系梳理" data-i18n="nav.kinship">关系梳理</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="related-party.html" aria-label="关联交易" data-i18n="nav.related_transactions">关联交易</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="shadow-shareholder.html" aria-label="影子股东" data-i18n="nav.shadow_shareholders">影子股东</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="micro-power.html" aria-label="微权力" data-i18n="nav.micro_power">微权力</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="supplier.html" aria-label="供应商画像" data-i18n="nav.supplier_profile">供应商画像</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="design-trace.html" aria-label="设计追溯" data-i18n="nav.design_traceability">设计追溯</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="compliance.html" aria-label="合规看板" data-i18n="nav.compliance_dashboard">合规看板</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="alert-center.html" aria-label="告警中心" data-i18n="nav.alert_center">告警中心</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="report-center.html" aria-label="报表中心" data-i18n="nav.report_center">报表中心</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="system.html" aria-label="系统管理" data-i18n="nav.system_management">系统管理</a>
+                                    </li>
+                                </ul>
+                            </div>
+        </div>
+    </nav>
+
+    <!-- Banner 区域 -->
+    <section class="banner-section text-white text-center py-5 mb-2">
+        <div class="container">
+            <h1 class="banner-title mb-4" data-i18n="banner.title">守护工程清廉，助力合规发展</h1>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <button type="button" class="btn banner-btn" id="supplier-risk-btn" data-i18n="banner.supplier_risk">供应商风险榜</button>
+                <button type="button" class="btn banner-btn" id="bidding-progress-btn" data-i18n="banner.bidding_progress">招投标进度</button>
+                <button type="button" class="btn banner-btn" id="compliance-report-btn" data-i18n="banner.compliance_report">合规报告</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <!-- 数据统计卡片区 -->
+        <div class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-title" data-i18n="stats.supplier_total">供应商总数</div>
+                        <div class="stat-number stat-blue">2,458</div>
+                        <div class="stat-change stat-positive" data-i18n="stats.monthly_change" data-i18n-params='{"value": "+12"}'>较上月 +12</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-title" data-i18n="stats.high_risk_alerts">高风险告警</div>
+                        <div class="stat-number stat-red">18</div>
+                        <div class="stat-change stat-negative" data-i18n="stats.monthly_change" data-i18n-params='{"value": "-3"}'>较上月 -3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-title" data-i18n="stats.ongoing_bidding">进行中招标</div>
+                        <div class="stat-number stat-orange">42</div>
+                        <div class="stat-change stat-positive" data-i18n="stats.monthly_change" data-i18n-params='{"value": "+5"}'>较上月 +5</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-title" data-i18n="stats.compliance_rate">合规通过率</div>
+                        <div class="stat-number stat-green">94.2%</div>
+                        <div class="stat-change stat-positive" data-i18n="stats.monthly_change" data-i18n-params='{"value": "+1.5%"}'>较上月 +1.5%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 双列信息区 -->
+        <div class="info-section">
+            <div class="container">
+                <div class="info-grid">
+                    <!-- 系统公告与规则更新 -->
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <h3 class="info-card-title">系统公告与规则更新</h3>
+                            <a href="#" class="info-card-more">查看更多</a>
+                        </div>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <div class="info-item-title">关于供应商资质审核流程优化的通知</div>
+                                <div class="info-item-date">2025-06-15</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-item-title">2025年第二季度合规检查结果公示</div>
+                                <div class="info-item-date">2025-06-10</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-item-title">工程监督工具系统V2.5版本更新说明</div>
+                                <div class="info-item-date">2025-06-05</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-item-title">关于加强招投标过程监督管理的通知</div>
+                                <div class="info-item-date">2025-05-28</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-item-title">关于某项目招投标结果的公示</div>
+                                <div class="info-item-date">2025-05-20</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 告警中心预览 -->
+                    <div class="info-card alert-card">
+                        <div class="info-card-header">
+                            <h3 class="info-card-title">告警中心预览</h3>
+                            <a href="#" class="info-card-more">查看更多</a>
+                        </div>
+                        <div class="info-list">
+                            <div class="alert-item">
+                                <div class="alert-dot alert-danger"></div>
+                                <div class="alert-content">
+                                    <div class="alert-title">发现供应商关联交易风险</div>
+                                    <div class="alert-details">供应商: 某某工程有限公司 | 10分钟前</div>
+                                </div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-dot alert-danger"></div>
+                                <div class="alert-content">
+                                    <div class="alert-title">招标文件合规性检查未通过</div>
+                                    <div class="alert-details">项目: 某油田设备采购 | 1小时前</div>
+                                </div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-dot alert-warning"></div>
+                                <div class="alert-content">
+                                    <div class="alert-title">供应商资质即将到期</div>
+                                    <div class="alert-details">供应商: 某某科技有限公司 | 2小时前</div>
+                                </div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-dot alert-info"></div>
+                                <div class="alert-content">
+                                    <div class="alert-title">系统检测到异常登录</div>
+                                    <div class="alert-details">用户: admin | 昨天 15:30</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 四个功能入口卡片 -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6 col-lg-3">
+                <a href="#" class="card h-100 p-4 feature-card text-decoration-none text-dark">
+                    <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-diagram-3 fs-1 mb-3 text-primary"></i>
+                        <h5 class="card-title fw-bold mb-2">关系图谱</h5>
+                        <p class="card-text text-muted small">可视化展示供应商关联关系,发现潜在风险</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <a href="#" class="card h-100 p-4 feature-card text-decoration-none text-dark">
+                    <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-bar-chart-line fs-1 mb-3 text-danger"></i>
+                        <h5 class="card-title fw-bold mb-2">供应商风险</h5>
+                        <p class="card-text text-muted small">全面评估供应商风险等级,预警异常情况</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <a href="#" class="card h-100 p-4 feature-card text-decoration-none text-dark">
+                    <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-calendar-check fs-1 mb-3 text-warning"></i>
+                        <h5 class="card-title fw-bold mb-2">招投标进度</h5>
+                        <p class="card-text text-muted small">实时跟踪招投标流程,确保合规透明</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <a href="#" class="card h-100 p-4 feature-card text-decoration-none text-dark">
+                    <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-collection fs-1 mb-3 text-success"></i>
+                        <h5 class="card-title fw-bold mb-2">合规看板</h5>
+                        <p class="card-text text-muted small">多维度展示合规指标,助力决策分析</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="text-center py-4 custom-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-copyright" data-i18n="footer.copyright">© 2025 工程监督工具 Integrity Supervisor</div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link" data-modal="privacy" data-i18n="footer.privacy_policy">数据安全合规声明</a>
+                    <a href="#" class="footer-link" data-drawer="contact" data-i18n="footer.contact_us">联系我们</a>
+                    <a href="#" class="footer-link" data-drawer="feedback" data-i18n="footer.feedback">问题反馈</a>
+                    <a href="#" class="footer-link" data-modal="privacy" data-i18n="footer.privacy">隐私政策</a>
+                    <a href="#" class="footer-link" data-modal="terms" data-i18n="footer.terms">使用条款</a>
+                </div>
+                <div class="footer-external">
+                    <a href="#" class="footer-link" id="helpCenterLink" data-i18n="footer.help_center">帮助中心</a>
+                    <a href="api-docs.html" class="footer-link" target="_blank" data-i18n="footer.api_docs">API 文档</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 数据安全合规声明 Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="privacyModalLabel">数据安全合规声明</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="privacy-content">
+                        <h6>1. 数据收集与使用</h6>
+                        <p>我们仅收集为提供服务所必需的数据，包括但不限于：</p>
+                        <ul>
+                            <li>用户基本信息（姓名、邮箱、联系方式）</li>
+                            <li>工程监督相关数据（项目信息、供应商信息、合规检查记录）</li>
+                            <li>系统使用日志（访问记录、操作记录、错误日志）</li>
+                        </ul>
+
+                        <h6>2. 数据安全保护</h6>
+                        <p>我们采用行业标准的安全措施保护您的数据：</p>
+                        <ul>
+                            <li>数据加密传输（TLS 1.3）</li>
+                            <li>数据存储加密（AES-256）</li>
+                            <li>访问权限控制（RBAC）</li>
+                            <li>定期安全审计</li>
+                            <li>数据备份与恢复</li>
+                        </ul>
+
+                        <h6>3. 数据共享与披露</h6>
+                        <p>我们不会向第三方出售、交易或转让您的个人信息，除非：</p>
+                        <ul>
+                            <li>获得您的明确同意</li>
+                            <li>法律法规要求</li>
+                            <li>保护我们的权利和财产</li>
+                            <li>保护用户和公众的安全</li>
+                        </ul>
+
+                        <h6>4. 数据保留期限</h6>
+                        <p>我们仅在必要期间内保留您的数据：</p>
+                        <ul>
+                            <li>用户账户数据：账户存续期间</li>
+                            <li>工程监督数据：项目完成后3年</li>
+                            <li>系统日志：6个月</li>
+                            <li>法律要求：按相关法规要求</li>
+                        </ul>
+
+                        <h6>5. 您的权利</h6>
+                        <p>您有权：</p>
+                        <ul>
+                            <li>访问、更正、删除您的个人信息</li>
+                            <li>撤回同意</li>
+                            <li>数据可携带</li>
+                            <li>投诉和举报</li>
+                        </ul>
+
+                        <h6>6. 联系我们</h6>
+                        <p>如有任何数据保护相关问题，请联系我们：</p>
+                        <ul>
+                            <li>邮箱：privacy@integrity-supervisor.com</li>
+                            <li>电话：123-456-7890</li>
+                            <li>地址：省市区街道</li>
+                        </ul>
+
+                        <p class="text-muted mt-3">
+                            <small>本声明最后更新：2025年9月12日</small>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="privacyReadBtn">我已阅读</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 使用条款 Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">使用条款</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="terms-content">
+                        <h6>1. 服务条款</h6>
+                        <p>欢迎使用工程监督平台（"本服务"）。通过访问或使用本服务，您同意受本使用条款的约束。</p>
+
+                        <h6>2. 用户责任</h6>
+                        <p>使用本服务时，您同意：</p>
+                        <ul>
+                            <li>提供真实、准确、完整的信息</li>
+                            <li>遵守所有适用的法律法规</li>
+                            <li>不得滥用或恶意使用本服务</li>
+                            <li>保护您的账户安全</li>
+                        </ul>
+
+                        <h6>3. 服务可用性</h6>
+                        <p>我们努力确保服务的持续可用性，但不保证服务不会中断。我们保留在必要时暂停或终止服务的权利。</p>
+
+                        <h6>4. 知识产权</h6>
+                        <p>本服务及其内容受版权、商标和其他知识产权法律保护。未经授权，您不得复制、修改或分发我们的内容。</p>
+
+                        <h6>5. 免责声明</h6>
+                        <p>本服务按"现状"提供，我们不提供任何明示或暗示的保证。我们不对因使用本服务而产生的任何损失承担责任。</p>
+
+                        <h6>6. 条款修改</h6>
+                        <p>我们保留随时修改本条款的权利。修改后的条款将在本页面公布，继续使用服务即表示您接受修改后的条款。</p>
+
+                        <p class="text-muted mt-3">
+                            <small>本条款最后更新：2025年9月12日</small>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="termsReadBtn">我已阅读</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 帮助中心 Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">帮助中心</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="help-content">
+                        <!-- FAQ 部分 -->
+                        <div class="help-section">
+                            <h6 class="help-section-title">
+                                <i class="bi bi-question-circle me-2"></i>
+                                常见问题
+                            </h6>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <strong>Q：如何发起智能问答？</strong>
+                                </div>
+                                <div class="faq-answer">
+                                    A：在页面右下角打开对话窗口，输入问题后回车发送。您也可以点击导航栏的"AI问答"进入全屏模式。
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <strong>Q：知识库多久更新？</strong>
+                                </div>
+                                <div class="faq-answer">
+                                    A：每周一/四自动增量更新。重要政策变更会实时更新。
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <strong>Q：如何查看关系图谱？</strong>
+                                </div>
+                                <div class="faq-answer">
+                                    A：点击导航栏的"关系梳理"，在左侧筛选条件后点击"应用"按钮即可生成关系图谱。
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <strong>Q：数据安全如何保障？</strong>
+                                </div>
+                                <div class="faq-answer">
+                                    A：我们采用TLS 1.3加密传输、AES-256存储加密、RBAC权限控制等多重安全措施。
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 使用说明部分 -->
+                        <div class="help-section">
+                            <h6 class="help-section-title">
+                                <i class="bi bi-book me-2"></i>
+                                使用说明
+                            </h6>
+                            <div class="usage-tips">
+                                <ul>
+                                    <li><strong>浏览器要求：</strong>建议使用最新版 Chrome/Edge/Firefox</li>
+                                    <li><strong>文件上传：</strong>支持 PDF、CSV、Excel 格式，单个文件不超过 10MB</li>
+                                    <li><strong>数据导入：</strong>请确保数据格式正确，字段完整</li>
+                                    <li><strong>权限管理：</strong>不同角色具有不同的操作权限</li>
+                                    <li><strong>系统维护：</strong>每周日凌晨 2:00-4:00 进行系统维护</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 联系方式部分 -->
+                        <div class="help-section">
+                            <h6 class="help-section-title">
+                                <i class="bi bi-telephone me-2"></i>
+                                联系方式
+                            </h6>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope me-2"></i>
+                                    <span>邮箱：</span>
+                                    <a href="mailto:support@integrity-supervisor.com" class="contact-link">
+                                        support@integrity-supervisor.com
+                                    </a>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone me-2"></i>
+                                    <span>电话：</span>
+                                    <a href="tel:400-123-4567" class="contact-link">400-123-4567</a>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-clock me-2"></i>
+                                    <span>服务时间：</span>
+                                    <span class="text-muted">周一至周五 9:00-18:00</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-wechat me-2"></i>
+                                    <span>企业微信：</span>
+                                    <span class="text-muted">扫码添加（后续补二维码）</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="helpContactBtn">联系我们</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 联系我们/问题反馈 Drawer -->
+    <div class="drawer" id="contactDrawer">
+        <div class="drawer-backdrop" data-drawer-close="contact"></div>
+        <div class="drawer-content">
+            <div class="drawer-header">
+                <h5 class="drawer-title" id="drawerTitle">联系我们</h5>
+                <button type="button" class="drawer-close" data-drawer-close="contact" aria-label="关闭">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="drawer-body">
+                <!-- 成功提示 -->
+                <div class="alert alert-success d-none" id="successAlert" role="alert">
+                    <i class="bi bi-check-circle me-2"></i>
+                    提交成功！我们会尽快回复您。
+                </div>
+                
+                <form id="contactForm" novalidate>
+                    <div class="mb-3">
+                        <label for="contactName" class="form-label">姓名 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="contactName" name="name" required>
+                        <div class="invalid-feedback" id="nameError">请输入您的姓名</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="contactEmail" class="form-label">邮箱 <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="contactEmail" name="email" required>
+                        <div class="invalid-feedback" id="emailError">请输入有效的邮箱地址</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="contactType" class="form-label">问题类型 <span class="text-danger">*</span></label>
+                        <select class="form-select" id="contactType" name="type" required>
+                            <option value="">请选择问题类型</option>
+                            <option value="bug">功能问题</option>
+                            <option value="general">使用咨询</option>
+                            <option value="data">数据问题</option>
+                            <option value="other">其他</option>
+                        </select>
+                        <div class="invalid-feedback" id="typeError">请选择问题类型</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="contactDescription" class="form-label">详细描述 <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="contactDescription" name="description" rows="4" required placeholder="请详细描述您的问题或建议..."></textarea>
+                        <div class="invalid-feedback" id="descriptionError">请输入详细描述</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="contactFile" class="form-label">附件/截图 <span class="text-muted">(可选)</span></label>
+                        <input type="file" class="form-control" id="contactFile" name="file" accept="image/*,.pdf,.doc,.docx">
+                        <div class="form-text">支持图片、PDF、Word文档，单个文件不超过10MB</div>
+                        <div class="file-list mt-2" id="fileList"></div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="drawer-footer">
+                <button type="button" class="btn btn-secondary" data-drawer-close="contact">取消</button>
+                <button type="button" class="btn btn-primary" id="submitBtn" disabled>提交</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MaxKB浮窗模式会自动创建悬浮按钮，不需要自定义的悬浮按钮和聊天窗口 -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+    
+    <!-- 横幅按钮跳转逻辑 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 供应商风险榜按钮 - 跳转到供应商画像页面
+            document.getElementById('supplier-risk-btn').addEventListener('click', function() {
+                window.location.href = 'supplier.html';
+            });
+            
+            // 招投标进度按钮 - 跳转到关联交易页面
+            document.getElementById('bidding-progress-btn').addEventListener('click', function() {
+                window.location.href = 'related-party.html';
+            });
+            
+            // 合规报告按钮 - 跳转到报表中心页面
+            document.getElementById('compliance-report-btn').addEventListener('click', function() {
+                window.location.href = 'report-center.html';
+            });
+        });
+    </script>
+    
+    <script src="app.js"></script>
+    
+    <!-- MaxKB第三方嵌入代码 - 浮窗模式 -->
+    <script
+        async
+        defer
+        src="http://62.234.162.112:6002/chat/api/embed?protocol=http&host=62.234.162.112:6002&token=ef85a1c2cc251df3">
+    </script>
+</body>
+</html>

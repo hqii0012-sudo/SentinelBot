@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统管理 - 工程监督平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部 Header -->
+    <header class="system-header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h1 class="system-title mb-0" data-i18n="system.management">系统管理</h1>
+                            <p class="system-subtitle mb-0" data-i18n="system.management_desc">配置系统参数、管理用户权限、监控系统状态</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="header-actions">
+                        <!-- 返回首页按钮 -->
+                        <a href="index.html" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-arrow-left me-1"></i>
+                            <span data-i18n="system.back_to_home">返回首页</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <div class="system-container">
+        <div class="row h-100">
+            <!-- 左侧导航栏 -->
+            <div class="col-md-3 col-lg-2 system-sidebar">
+                <nav class="system-nav">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-section="users" data-i18n="system.users_roles">
+                                <i class="bi bi-people me-2"></i>
+                                用户与角色
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="menu" data-i18n="system.menu_language">
+                                <i class="bi bi-menu-button-wide me-2"></i>
+                                菜单与语言
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="security" data-i18n="system.security_audit">
+                                <i class="bi bi-shield-lock me-2"></i>
+                                安全与审计
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="notifications" data-i18n="system.notifications">
+                                <i class="bi bi-bell me-2"></i>
+                                通知
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="integrations" data-i18n="system.integrations_keys">
+                                <i class="bi bi-plug me-2"></i>
+                                集成与密钥
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="models" data-i18n="system.models_knowledge">
+                                <i class="bi bi-cpu me-2"></i>
+                                模型与知识库
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- 右侧内容区 -->
+            <div class="col-md-9 col-lg-10 system-content">
+                <div class="system-main">
+
+                    <!-- 动态内容区 -->
+                    <div id="system-content-area">
+                        <!-- 用户与角色内容 -->
+                        <div id="users-content" class="content-section active">
+                            <div class="system-card">
+                                <div class="card-header">
+                                    <h5 class="card-title" data-i18n="system.users_roles">用户与角色</h5>
+                                    <button class="btn btn-primary btn-sm" data-i18n="system.add_user">添加用户</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th data-i18n="system.username">用户名</th>
+                                                    <th data-i18n="system.role">角色</th>
+                                                    <th data-i18n="system.status">状态</th>
+                                                    <th data-i18n="system.actions">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="users-table-body">
+                                                <!-- 动态生成用户数据 -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 菜单与语言内容 -->
+                        <div id="menu-content" class="content-section">
+                            <div class="system-card">
+                                <div class="card-header">
+                                    <h5 class="card-title" data-i18n="system.menu_language">菜单与语言</h5>
+                                    <button class="btn btn-success btn-sm" data-i18n="system.save_changes">保存更改</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th data-i18n="system.key">Key</th>
+                                                    <th data-i18n="system.chinese">中文</th>
+                                                    <th data-i18n="system.english">English</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="menu-table-body">
+                                                <!-- 动态生成菜单数据 -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 安全与审计内容 -->
+                        <div id="security-content" class="content-section">
+                            <div class="system-card">
+                                <div class="card-header">
+                                    <h5 class="card-title" data-i18n="system.security_settings">安全设置</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="security-form">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="min-password" class="form-label" data-i18n="system.min_password_length">最短密码长度</label>
+                                                    <input type="number" class="form-control" id="min-password" value="8" min="6" max="20">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label" data-i18n="system.two_factor_auth">双因素认证</label>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="2fa-switch" checked>
+                                                        <label class="form-check-label" for="2fa-switch" data-i18n="system.enable_2fa">启用 2FA</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" data-i18n="system.save_settings">保存设置</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="system-card mt-4">
+                                <div class="card-header">
+                                    <h5 class="card-title" data-i18n="system.audit_logs">审计日志</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th data-i18n="system.time">时间</th>
+                                                    <th data-i18n="system.user">用户</th>
+                                                    <th data-i18n="system.action">动作</th>
+                                                    <th data-i18n="system.ip_address">IP地址</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="audit-table-body">
+                                                <!-- 动态生成审计日志数据 -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 通知内容 -->
+                        <div id="notifications-content" class="content-section">
+                            <div class="system-card">
+                                <div class="card-header">
+                                    <h5 class="card-title" data-i18n="system.notification_settings">通知设置</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="notification-form">
+                                        <div class="mb-4">
+                                            <div class="form-check form-switch mb-3">
+                                                <input class="form-check-input" type="checkbox" id="in-app-notifications" checked>
+                                                <label class="form-check-label" for="in-app-notifications" data-i18n="system.in_app_notifications">站内通知</label>
+                                            </div>
+                                            <div class="form-check form-switch mb-3">
+                                                <input class="form-check-input" type="checkbox" id="email-notifications" checked>
+                                                <label class="form-check-label" for="email-notifications" data-i18n="system.email_notifications">邮件通知</label>
+                                            </div>
+                                            <div class="form-check form-switch mb-3">
+                                                <input class="form-check-input" type="checkbox" id="webhook-notifications">
+                                                <label class="form-check-label" for="webhook-notifications" data-i18n="system.webhook_notifications">Webhook 通知</label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" data-i18n="system.save_notifications">保存通知设置</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 集成与密钥内容 -->
+                        <div id="integrations-content" class="content-section">
+                            <div class="system-card">
+                                <div class="card-header">
+                                    <h5 class="card-title" data-i18n="system.integrations_keys">集成与密钥</h5>
+                                    <button class="btn btn-primary btn-sm" data-i18n="system.add_integration">添加集成</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th data-i18n="system.name">名称</th>
+                                                    <th data-i18n="system.service">服务</th>
+                                                    <th data-i18n="system.key_mask">密钥掩码</th>
+                                                    <th data-i18n="system.status">状态</th>
+                                                    <th data-i18n="system.actions">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="integrations-table-body">
+                                                <!-- 动态生成集成数据 -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 模型与知识库内容 -->
+                        <div id="models-content" class="content-section">
+                            <div class="system-card">
+                                <div class="card-header">
+                                    <h5 class="card-title" data-i18n="system.model_settings">模型设置</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="model-form">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="model-name" class="form-label" data-i18n="system.model_name">模型名称</label>
+                                                    <select class="form-select" id="model-name">
+                                                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                                        <option value="gpt-4" selected>GPT-4</option>
+                                                        <option value="claude-3">Claude-3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="temperature" class="form-label" data-i18n="system.temperature">温度</label>
+                                                    <input type="range" class="form-range" id="temperature" min="0" max="1" step="0.1" value="0.7">
+                                                    <div class="form-text" id="temperature-value">0.7</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="max-length" class="form-label" data-i18n="system.max_length">最大长度</label>
+                                                    <input type="number" class="form-control" id="max-length" value="2048" min="100" max="4096">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" data-i18n="system.save_model_settings">保存模型设置</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="system-card mt-4">
+                                <div class="card-header">
+                                    <h5 class="card-title" data-i18n="system.knowledge_base">知识库管理</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <p class="mb-0" data-i18n="system.knowledge_base_desc">管理知识库索引和文档</p>
+                                        <button class="btn btn-warning" id="rebuild-index" data-i18n="system.rebuild_index">立即重建索引</button>
+                                    </div>
+                                    <div class="alert alert-info" data-i18n="system.rebuild_warning">重建索引可能需要几分钟时间，请耐心等待。</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MaxKB 浮窗 -->
+    <script async defer src="http://62.234.162.112:6002/chat/api/embed?protocol=http&host=62.234.162.112:6002&token=ef85a1c2cc251df3"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 自定义 JS -->
+    <script src="app.js"></script>
+</body>
+</html>
